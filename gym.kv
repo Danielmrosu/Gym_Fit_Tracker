@@ -1,0 +1,1830 @@
+#:import dp kivy.metrics.dp
+
+<DarkCard@BoxLayout>:
+    orientation: "vertical"
+    padding: dp(12)
+    spacing: dp(8)
+    canvas.before:
+        Color:
+            rgba: 0.133, 0.122, 0.106, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(8)]
+
+<DarkButton@Button>:
+    background_color: 0.435, 0.545, 0.639, 1
+    color: 1, 1, 1, 1
+    font_size: dp(14)
+    bold: True
+
+<GhostButton@Button>:
+    background_color: 0.18, 0.168, 0.15, 1
+    color: 0.48, 0.45, 0.41, 1
+    font_size: dp(13)
+
+<RedButton@Button>:
+    background_color: 0.757, 0.267, 0.235, 1
+    color: 1, 1, 1, 1
+    font_size: dp(13)
+
+<GreenButton@Button>:
+    background_color: 0.478, 0.62, 0.435, 1
+    color: 1, 1, 1, 1
+    font_size: dp(13)
+
+<StatCard@BoxLayout>:
+    orientation: "vertical"
+    padding: dp(8)
+    canvas.before:
+        Color:
+            rgba: 0.11, 0.102, 0.09, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(6)]
+
+<ScreenLabel@Label>:
+    font_size: dp(20)
+    bold: True
+    size_hint_y: None
+    height: dp(44)
+    color: 0.949, 0.929, 0.886, 1
+
+# === HOME SCREEN ===
+<HomeScreen>:
+    name: "home"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        Label:
+            text: "Gym Tracker"
+            font_size: dp(26)
+            bold: True
+            size_hint_y: None
+            height: dp(40)
+            color: 0.757, 0.267, 0.235, 1
+
+        Label:
+            text: "Your fitness companion"
+            font_size: dp(14)
+            color: 0.48, 0.45, 0.41, 1
+            size_hint_y: None
+            height: dp(20)
+
+        ScrollView:
+            size_hint_y: 1
+            bar_color: 0.48, 0.45, 0.41, 0.5
+            bar_width: dp(4)
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(8)
+                padding: [0, 0, 0, dp(8)]
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(100)
+                    spacing: dp(8)
+
+                    StatCard:
+                        Label:
+                            id: total_workouts
+                            text: "0"
+                            font_size: dp(28)
+                            bold: True
+                            color: 0.435, 0.545, 0.639, 1
+                        Label:
+                            text: "Total"
+                            font_size: dp(11)
+                            color: 0.48, 0.45, 0.41, 1
+
+                    StatCard:
+                        Label:
+                            id: weekly_workouts
+                            text: "0"
+                            font_size: dp(28)
+                            bold: True
+                            color: 0.478, 0.62, 0.435, 1
+                        Label:
+                            text: "This Week"
+                            font_size: dp(11)
+                            color: 0.48, 0.45, 0.41, 1
+
+                    StatCard:
+                        Label:
+                            id: latest_weight
+                            text: "--"
+                            font_size: dp(28)
+                            bold: True
+                            color: 0.788, 0.635, 0.294, 1
+                        Label:
+                            text: "Weight"
+                            font_size: dp(11)
+                            color: 0.48, 0.45, 0.41, 1
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(80)
+                    spacing: dp(8)
+
+                    StatCard:
+                        Label:
+                            id: active_days
+                            text: "0"
+                            font_size: dp(24)
+                            bold: True
+                            color: 0.757, 0.267, 0.235, 1
+                        Label:
+                            text: "Active Days"
+                            font_size: dp(11)
+                            color: 0.48, 0.45, 0.41, 1
+
+                    StatCard:
+                        Label:
+                            id: monthly_minutes
+                            text: "0"
+                            font_size: dp(24)
+                            bold: True
+                            color: 0.788, 0.635, 0.294, 1
+                        Label:
+                            text: "Minutes"
+                            font_size: dp(11)
+                            color: 0.48, 0.45, 0.41, 1
+
+                    StatCard:
+                        Label:
+                            id: monthly_distance
+                            text: "0km"
+                            font_size: dp(20)
+                            bold: True
+                            color: 0.435, 0.545, 0.639, 1
+                        Label:
+                            text: "Distance"
+                            font_size: dp(11)
+                            color: 0.48, 0.45, 0.41, 1
+
+                DarkCard:
+                    size_hint_y: None
+                    height: dp(40) + today_plan_container.height
+
+                    Label:
+                        text: "Today's Plan"
+                        font_size: dp(13)
+                        bold: True
+                        size_hint_y: None
+                        height: dp(24)
+                        halign: "left"
+                        color: 0.658, 0.631, 0.588, 1
+
+                    BoxLayout:
+                        id: today_plan_container
+                        orientation: "vertical"
+                        size_hint_y: None
+                        height: self.minimum_height
+                        spacing: dp(2)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(52)
+            spacing: dp(8)
+
+            DarkButton:
+                text: "Start Workout"
+                on_press: app.root.current = "workouts"
+
+            DarkButton:
+                text: "Nutrition"
+                background_color: 0.478, 0.62, 0.435, 1
+                on_press: app.root.current = "nutrition"
+
+            GhostButton:
+                text: "Library"
+                background_color: 0.788, 0.635, 0.294, 1
+                color: 1, 1, 1, 1
+                bold: True
+                on_press: app.root.current = "library"
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(52)
+            spacing: dp(8)
+
+            GhostButton:
+                text: "Plan"
+                on_press: app.root.current = "weekly_plan"
+
+            GhostButton:
+                text: "Timer"
+                on_press: app.root.current = "stopwatch"
+
+            GhostButton:
+                text: "1RM"
+                on_press: root.show_1rm_calculator()
+
+            GhostButton:
+                text: "Progress"
+                on_press: app.root.current = "progress"
+
+            GhostButton:
+                text: "Metrics"
+                on_press: app.root.current = "body_metrics"
+
+            GhostButton:
+                text: "Calendar"
+                on_press: app.root.current = "calendar"
+
+            GhostButton:
+                text: "Settings"
+                on_press: app.root.current = "settings"
+
+# === WORKOUT LIST SCREEN ===
+<WorkoutScreen>:
+    name: "workouts"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(44)
+            spacing: dp(8)
+
+            ScreenLabel:
+                text: "My Workouts"
+                halign: "left"
+                size_hint_x: 0.7
+
+            DarkButton:
+                text: "+ New"
+                size_hint_x: 0.3
+                on_press: root.go_new()
+
+        BoxLayout:
+            id: plan_section
+            orientation: "vertical"
+            size_hint_y: None
+            height: 0
+            opacity: 0
+            spacing: dp(4)
+            padding: [dp(12), dp(8)]
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(28)
+
+                Label:
+                    text: "Today's Plan"
+                    font_size: dp(13)
+                    bold: True
+                    halign: "left"
+                    size_hint_x: 0.6
+                    color: 0.658, 0.631, 0.588, 1
+
+                Button:
+                    text: "Start Plan"
+                    font_size: dp(11)
+                    size_hint_x: 0.3
+                    background_color: 0.757, 0.267, 0.235, 1
+                    color: 1, 1, 1, 1
+                    on_press: root.start_from_plan()
+
+            BoxLayout:
+                id: plan_container
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(2)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(44)
+            spacing: dp(8)
+
+            ScreenLabel:
+                text: "Templates"
+                halign: "left"
+                color: 0.757, 0.267, 0.235, 1
+
+        ScrollView:
+            BoxLayout:
+                id: templates_container
+                orientation: "vertical"
+                size_hint_y: None
+                spacing: dp(4)
+                padding: [0, dp(4)]
+                height: self.minimum_height
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(44)
+            spacing: dp(8)
+
+            ScreenLabel:
+                text: "Completed Workouts"
+                halign: "left"
+                color: 0.788, 0.635, 0.294, 1
+
+        ScrollView:
+            BoxLayout:
+                id: workouts_container
+                orientation: "vertical"
+                size_hint_y: None
+                spacing: dp(6)
+                padding: [0, dp(4)]
+                height: self.minimum_height
+
+        GhostButton:
+            text: "Back to Home"
+            size_hint_y: None
+            height: dp(44)
+            on_press: app.root.current = "home"
+
+# === NEW WORKOUT SCREEN ===
+<NewWorkoutScreen>:
+    name: "new_workout"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(16)
+        spacing: dp(12)
+
+        ScreenLabel:
+            text: "New Workout"
+
+        Label:
+            text: "Workout Name"
+            font_size: dp(14)
+            halign: "left"
+            size_hint_y: None
+            height: dp(24)
+
+        TextInput:
+            id: workout_name
+            hint_text: "e.g. Push Day, Leg Day..."
+            font_size: dp(16)
+            size_hint_y: None
+            height: dp(48)
+            padding: [dp(12), dp(12)]
+
+        Widget:
+
+        DarkButton:
+            text: "Start Workout"
+            size_hint_y: None
+            height: dp(50)
+            on_press: root.create_workout()
+
+        GhostButton:
+            text: "Cancel"
+            size_hint_y: None
+            height: dp(44)
+            on_press: root.cancel()
+
+# === ACTIVE WORKOUT SCREEN ===
+<ActiveWorkoutScreen>:
+    name: "active_workout"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(40)
+            spacing: dp(8)
+
+            Label:
+                id: workout_title
+                text: "Workout"
+                font_size: dp(18)
+                bold: True
+                halign: "left"
+                size_hint_x: 0.4
+
+            GhostButton:
+                text: "Template"
+                size_hint_x: 0.2
+                font_size: dp(11)
+                on_press: root.save_as_template()
+
+            GreenButton:
+                text: "Finish"
+                size_hint_x: 0.2
+                on_press: root.finish_workout()
+
+            RedButton:
+                text: "X"
+                size_hint_x: 0.1
+                on_press: root.cancel_workout()
+
+            GhostButton:
+                text: "<"
+                size_hint_x: 0.1
+                font_size: dp(14)
+                on_press: root.manager.current = "workouts"
+
+        DarkButton:
+            text: "+ Add Exercise"
+            size_hint_y: None
+            height: dp(42)
+            on_press: root._add_exercise()
+
+        ScrollView:
+            BoxLayout:
+                id: exercises_container
+                orientation: "vertical"
+                size_hint_y: None
+                spacing: dp(6)
+                height: self.minimum_height
+
+# === EXERCISE LIBRARY SCREEN ===
+<ExerciseLibraryScreen>:
+    name: "library"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(4)
+
+        ScreenLabel:
+            text: "Exercise Library"
+            height: dp(36)
+
+        TextInput:
+            id: search_input
+            hint_text: "Search exercises..."
+            font_size: dp(14)
+            size_hint_y: None
+            height: dp(38)
+            padding: [dp(10), dp(10)]
+            on_text: root.search(self.text)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(36)
+            spacing: dp(4)
+
+            GhostButton:
+                id: tab_category_btn
+                text: "Category"
+                font_size: dp(12)
+                on_press: root.switch_tab("category")
+                background_color: 0.435, 0.545, 0.639, 1
+
+            GhostButton:
+                id: tab_equipment_btn
+                text: "Equipment"
+                font_size: dp(12)
+                on_press: root.switch_tab("equipment")
+
+            GhostButton:
+                id: tab_muscle_btn
+                text: "Body Part"
+                font_size: dp(12)
+                on_press: root.switch_tab("muscle")
+
+        BoxLayout:
+            id: category_container
+            size_hint_y: None
+            height: dp(34)
+            spacing: dp(4)
+
+            GhostButton:
+                text: "All"
+                font_size: dp(11)
+                on_press: root.filter_by_category("All")
+
+            GhostButton:
+                text: "Strength"
+                font_size: dp(11)
+                on_press: root.filter_by_category("Strength")
+
+            GhostButton:
+                text: "Bodyweight"
+                font_size: dp(11)
+                on_press: root.filter_by_category("Bodyweight")
+
+            GhostButton:
+                text: "Cardio"
+                font_size: dp(11)
+                on_press: root.filter_by_category("Cardio")
+
+        BoxLayout:
+            id: equipment_container
+            size_hint_y: None
+            height: 0
+            opacity: 0
+            spacing: dp(4)
+
+            GhostButton:
+                text: "All"
+                font_size: dp(11)
+                on_press: root.filter_by_equipment("All")
+
+            GhostButton:
+                text: "Machine"
+                font_size: dp(11)
+                on_press: root.filter_by_equipment("Machine")
+
+            GhostButton:
+                text: "Barbell"
+                font_size: dp(11)
+                on_press: root.filter_by_equipment("Barbell")
+
+            GhostButton:
+                text: "Dumbbells"
+                font_size: dp(11)
+                on_press: root.filter_by_equipment("Dumbbells")
+
+        BoxLayout:
+            id: equipment_container2
+            size_hint_y: None
+            height: 0
+            opacity: 0
+            spacing: dp(4)
+
+            GhostButton:
+                text: "Cable"
+                font_size: dp(11)
+                on_press: root.filter_by_equipment("Cable")
+
+            GhostButton:
+                text: "Cardio Machine"
+                font_size: dp(11)
+                on_press: root.filter_by_equipment("Cardio Machine")
+
+            GhostButton:
+                text: "No Equipment"
+                font_size: dp(11)
+                on_press: root.filter_by_equipment("None")
+
+        BoxLayout:
+            id: muscle_container
+            size_hint_y: None
+            height: 0
+            opacity: 0
+            spacing: dp(4)
+
+            GhostButton:
+                text: "All"
+                font_size: dp(11)
+                on_press: root.filter_by_muscle("All")
+
+            GhostButton:
+                text: "Chest"
+                font_size: dp(11)
+                on_press: root.filter_by_muscle("Chest")
+
+            GhostButton:
+                text: "Back"
+                font_size: dp(11)
+                on_press: root.filter_by_muscle("Back")
+
+            GhostButton:
+                text: "Legs"
+                font_size: dp(11)
+                on_press: root.filter_by_muscle("Legs")
+
+        BoxLayout:
+            id: muscle_container2
+            size_hint_y: None
+            height: 0
+            opacity: 0
+            spacing: dp(4)
+
+            GhostButton:
+                text: "Shoulders"
+                font_size: dp(11)
+                on_press: root.filter_by_muscle("Shoulders")
+
+            GhostButton:
+                text: "Arms"
+                font_size: dp(11)
+                on_press: root.filter_by_muscle("Arms")
+
+            GhostButton:
+                text: "Core"
+                font_size: dp(11)
+                on_press: root.filter_by_muscle("Core")
+
+            GhostButton:
+                text: "Full Body"
+                font_size: dp(11)
+                on_press: root.filter_by_muscle("Full Body")
+
+        ScrollView:
+            BoxLayout:
+                id: exercises_container
+                orientation: "vertical"
+                size_hint_y: None
+                spacing: dp(4)
+                height: self.minimum_height
+
+        GhostButton:
+            text: "Back"
+            size_hint_y: None
+            height: dp(42)
+            on_press: app.root.current = "home"
+
+# === BASE NAVIGATION HEADER (Reusable) ===
+<TimerHeader@BoxLayout>:
+    size_hint_y: None
+    height: dp(40)
+    spacing: dp(4)
+    active_tab: "stopwatch"
+
+    GhostButton:
+        text: "Stopwatch"
+        font_size: dp(11)
+        background_color: (0.435, 0.545, 0.639, 1) if root.active_tab == "stopwatch" else (0.18, 0.168, 0.15, 1)
+        on_press: app.root.current = "stopwatch"
+
+    GhostButton:
+        text: "Rest Timer"
+        font_size: dp(11)
+        background_color: (0.435, 0.545, 0.639, 1) if root.active_tab == "rest" else (0.18, 0.168, 0.15, 1)
+        on_press: app.root.current = "rest_timer"
+
+    GhostButton:
+        text: "Pomodoro"
+        font_size: dp(11)
+        background_color: (0.435, 0.545, 0.639, 1) if root.active_tab == "pomodoro" else (0.18, 0.168, 0.15, 1)
+        on_press: app.root.current = "pomodoro"
+
+# === 1. STOPWATCH SCREEN ===
+<StopwatchScreen>:
+    name: "stopwatch"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        ScreenLabel:
+            text: "Stopwatch"
+            height: dp(36)
+
+        TimerHeader:
+            active_tab: "stopwatch"
+
+        DarkCard:
+            size_hint_y: 0.7
+
+            Widget:
+
+            Label:
+                id: time_display
+                text: "00:00:00"
+                font_size: dp(48)
+                bold: True
+                color: 0.435, 0.545, 0.639, 1
+                size_hint_y: None
+                height: dp(60)
+
+            Widget:
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(48)
+                spacing: dp(8)
+
+                DarkButton:
+                    text: "Start" if not root.running else "Stop"
+                    on_press: root.toggle()
+
+                GhostButton:
+                    text: "Reset"
+                    on_press: root.reset_stopwatch()
+
+        Widget:
+
+        GhostButton:
+            text: "Back to Home"
+            size_hint_y: None
+            height: dp(42)
+            on_press: app.root.current = "home"
+
+# === 2. REST TIMER SCREEN ===
+<RestTimerScreen>:
+    name: "rest_timer"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        ScreenLabel:
+            text: "Rest Timer"
+            height: dp(36)
+
+        TimerHeader:
+            active_tab: "rest"
+
+        DarkCard:
+            size_hint_y: 0.7
+
+            Label:
+                id: rest_display
+                text: "01:00"
+                font_size: dp(45)
+                bold: True
+                color: 0.788, 0.635, 0.294, 1
+                size_hint_y: None
+                height: dp(32)
+
+            ProgressBar:
+                id: rest_progress
+                max: 100
+                value: 100
+                size_hint_y: None
+                height: dp(14)
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(36)
+                spacing: dp(6)
+
+                GhostButton:
+                    text: "60s"
+                    font_size: dp(11)
+                    on_press: root.preset_60()
+
+                GhostButton:
+                    text: "90s"
+                    font_size: dp(11)
+                    on_press: root.preset_90()
+
+                GhostButton:
+                    text: "120s"
+                    font_size: dp(11)
+                    on_press: root.preset_120()
+
+                GhostButton:
+                    text: "180s"
+                    font_size: dp(11)
+                    on_press: root.preset_180()
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(44)
+                spacing: dp(8)
+
+                DarkButton:
+                    text: "Start" if not root.rest_running else "Pause"
+                    on_press: root.toggle_rest()
+
+                RedButton:
+                    text: "Stop"
+                    on_press: root.stop_rest()
+
+                GhostButton:
+                    text: "Reset"
+                    on_press: root.reset_rest()
+
+        Widget:
+
+        GhostButton:
+            text: "Back to Home"
+            size_hint_y: None
+            height: dp(42)
+            on_press: app.root.current = "home"
+
+# === 3. POMODORO SCREEN ===
+<PomodoroScreen>:
+    name: "pomodoro"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        ScreenLabel:
+            text: "Pomodoro Timer"
+            height: dp(36)
+
+        TimerHeader:
+            active_tab: "pomodoro"
+
+        DarkCard:
+            size_hint_y: 0.7
+
+            Label:
+                id: status_label
+                text: "Focus Time"
+                font_size: dp(14)
+                bold: True
+                color: 0.435, 0.545, 0.639, 1
+                size_hint_y: None
+                height: dp(24)
+
+            Label:
+                id: pomo_display
+                text: "25:00"
+                font_size: dp(45)
+                bold: True
+                color: 0.435, 0.545, 0.639, 1
+                size_hint_y: None
+                height: dp(32)
+
+            ProgressBar:
+                id: pomo_progress
+                max: 100
+                value: 100
+                size_hint_y: None
+                height: dp(14)
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(36)
+                spacing: dp(6)
+
+                GhostButton:
+                    text: "25m Work"
+                    font_size: dp(11)
+                    on_press: root.set_work_mode()
+
+                GhostButton:
+                    text: "5m Break"
+                    font_size: dp(11)
+                    on_press: root.set_break_mode()
+
+                GhostButton:
+                    text: "Custom"
+                    font_size: dp(11)
+                    on_press: root.show_custom_time_popup()
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(44)
+                spacing: dp(8)
+
+                DarkButton:
+                    text: "Start" if not root.pomo_running else "Pause"
+                    on_press: root.toggle_pomo()
+
+                GhostButton:
+                    text: "Reset"
+                    on_press: root.reset_pomo()
+
+        Widget:
+
+        GhostButton:
+            text: "Back to Home"
+            size_hint_y: None
+            height: dp(42)
+            on_press: app.root.current = "home"
+
+# === PROGRESS SCREEN ===
+<ProgressScreen>:
+    name: "progress"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        ScreenLabel:
+            text: "Progress"
+
+        Label:
+            id: today_date
+            text: ""
+            font_size: dp(13)
+            color:(0.6, 0.6, 0.6, 1)
+            size_hint_y: None
+            height: dp(24)
+
+        Label:
+            id: streak_text
+            text: "Current: 0 days | Best: 0 days"
+            font_size: dp(13)
+            bold: True
+            color: (0.788, 0.635, 0.294, 1)
+            size_hint_y: None
+            height: dp(24)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(36)
+            spacing: dp(6)
+
+            GhostButton:
+                id: tab_week
+                text: "Week"
+                font_size: dp(12)
+                on_press: root.switch_tab("week")
+
+            GhostButton:
+                id: tab_month
+                text: "Month"
+                font_size: dp(12)
+                on_press: root.switch_tab("month")
+
+            GhostButton:
+                id: tab_year
+                text: "Year"
+                font_size: dp(12)
+                on_press: root.switch_tab("year")
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(36)
+            spacing: dp(8)
+
+            Label:
+                id: period_workouts
+                text: "Workouts: 0"
+                font_size: dp(12)
+                size_hint_x: 0.33
+
+            Label:
+                id: period_minutes
+                text: "Minutes: 0"
+                font_size: dp(12)
+                size_hint_x: 0.33
+
+            Label:
+                id: period_active
+                text: "Active Days: 0"
+                font_size: dp(12)
+                size_hint_x: 0.33
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(24)
+            spacing: dp(8)
+
+            Label:
+                id: period_distance
+                text: ""
+                font_size: dp(12)
+                color: 0.435, 0.545, 0.639, 1
+                size_hint_x: 0.5
+
+            Label:
+                id: period_pace
+                text: ""
+                font_size: dp(12)
+                color: 0.788, 0.635, 0.294, 1
+                size_hint_x: 0.5
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(24)
+
+            Label:
+                id: period_calories
+                text: ""
+                font_size: dp(12)
+                color: 0.757, 0.267, 0.235, 1
+                size_hint_x: 1
+
+        Label:
+            id: total_workouts
+            text: "All Time: 0"
+            font_size: dp(12)
+            color: (0.6, 0.6, 0.6, 1)
+            size_hint_y: None
+            height: dp(20)
+
+        ScrollView:
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(6)
+
+                Label:
+                    id: workout_chart_title
+                    text: "Workouts"
+                    font_size: dp(13)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+
+                BarChart:
+                    id: workout_chart
+                    size_hint_y: None
+                    height: dp(100)
+
+                Label:
+                    id: muscle_chart_title
+                    text: "Muscles Trained"
+                    font_size: dp(13)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+
+                BarChart:
+                    id: muscle_chart
+                    size_hint_y: None
+                    height: dp(80)
+
+                Label:
+                    id: weight_chart_title
+                    text: "Body Weight (kg)"
+                    font_size: dp(13)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+                    color: 0.658, 0.631, 0.588, 1
+
+                LineChart:
+                    id: weight_chart
+                    size_hint_y: None
+                    height: dp(100)
+
+                Label:
+                    id: duration_chart_title
+                    text: "Duration (min)"
+                    font_size: dp(13)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+
+                BarChart:
+                    id: duration_chart
+                    size_hint_y: None
+                    height: dp(80)
+
+                Label:
+                    id: volume_chart_title
+                    text: "Volume (kg)"
+                    font_size: dp(13)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+
+                BarChart:
+                    id: volume_chart
+                    size_hint_y: None
+                    height: dp(80)
+
+                Label:
+                    text: "Body Measurements"
+                    font_size: dp(13)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+
+                BoxLayout:
+                    id: measurements_container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(2)
+
+                Label:
+                    text: "Estimated 1RM Leaders"
+                    font_size: dp(13)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+                    color: 0.658, 0.631, 0.588, 1
+
+                BoxLayout:
+                    id: pr_container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(2)
+
+                Label:
+                    text: "Personal Records"
+                    font_size: dp(13)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+                    color: 0.788, 0.635, 0.294, 1
+
+                BoxLayout:
+                    id: personal_records_container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(2)
+
+                Label:
+                    text: "Achievements"
+                    font_size: dp(13)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+
+                BoxLayout:
+                    id: achievements_container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(2)
+
+        GhostButton:
+            text: "Back"
+            size_hint_y: None
+            height: dp(42)
+            on_press: app.root.current = "home"
+
+# === BODY METRICS SCREEN ===
+<BodyMetricsScreen>:
+    name: "body_metrics"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        ScreenLabel:
+            text: "Body Metrics"
+
+        DarkCard:
+            BoxLayout:
+                size_hint_y: None
+                height: dp(32)
+                spacing: dp(8)
+
+                Label:
+                    id: bmi_value
+                    text: "BMI: --"
+                    font_size: dp(14)
+                    bold: True
+                    size_hint_x: 0.5
+
+                Label:
+                    id: bmi_category
+                    text: "No data"
+                    font_size: dp(14)
+                    bold: True
+                    color: 0.6, 0.6, 0.6, 1
+                    size_hint_x: 0.5
+
+            Label:
+                text: "Body Fat Zone"
+                font_size: dp(12)
+                color: 0.48, 0.45, 0.41, 1
+                size_hint_y: None
+                height: dp(20)
+
+            Label:
+                id: fat_zone
+                text: "--"
+                font_size: dp(14)
+                bold: True
+                color: 0.6, 0.6, 0.6, 1
+                size_hint_y: None
+                height: dp(28)
+
+            Label:
+                id: change_value
+                text: "Log 2+ entries to see changes"
+                font_size: dp(12)
+                color: 0.6, 0.6, 0.6, 1
+                size_hint_y: None
+                height: dp(24)
+
+        DarkCard:
+            Label:
+                text: "Current Stats"
+                font_size: dp(16)
+                bold: True
+                size_hint_y: None
+                height: dp(28)
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(36)
+                spacing: dp(8)
+
+                Label:
+                    id: current_weight
+                    text: "--"
+                    font_size: dp(22)
+                    bold: True
+                    color: 0.435, 0.545, 0.639, 1
+
+                Label:
+                    id: current_fat
+                    text: "Body Fat: --"
+                    font_size: dp(14)
+                    color: 0.6, 0.6, 0.6, 1
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(28)
+                spacing: dp(16)
+
+                Label:
+                    id: current_chest
+                    text: "Chest: --"
+                    font_size: dp(13)
+                    color: 0.6, 0.6, 0.6, 1
+
+                Label:
+                    id: current_waist
+                    text: "Waist: --"
+                    font_size: dp(13)
+                    color: 0.6, 0.6, 0.6, 1
+
+        DarkButton:
+            text: "+ Log New Metrics"
+            size_hint_y: None
+            height: dp(44)
+            on_press: root.show_add_metric()
+
+        ScrollView:
+            BoxLayout:
+                id: metrics_container
+                orientation: "vertical"
+                size_hint_y: None
+                spacing: dp(4)
+                height: self.minimum_height
+
+        GhostButton:
+            text: "Back"
+            size_hint_y: None
+            height: dp(42)
+            on_press: app.root.current = "home"
+
+# === WEEKLY PLAN SCREEN ===
+<WeeklyPlanScreen>:
+    name: "weekly_plan"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(44)
+            spacing: dp(8)
+
+            ScreenLabel:
+                text: "Weekly Plan"
+                halign: "left"
+                size_hint_x: 0.6
+
+            DarkButton:
+                text: "Today"
+                size_hint_x: 0.2
+                on_press: root.start_today_workout()
+
+        ScrollView:
+            BoxLayout:
+                id: plan_container
+                orientation: "vertical"
+                size_hint_y: None
+                spacing: dp(6)
+                padding: [0, dp(4)]
+                height: self.minimum_height
+
+        GhostButton:
+            text: "Back to Home"
+            size_hint_y: None
+            height: dp(42)
+            on_press: app.root.current = "home"
+
+# === SETTINGS SCREEN ===
+<SettingsScreen>:
+    name: "settings"
+# Spacing & Layout Expansion:
+#   - Increase vertical height, line-height, and padding for each
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        ScreenLabel:
+            text: "Settings"
+
+        DarkCard:
+            Label:
+                text: "Weight Unit"
+                font_size: dp(14)
+                halign: "left"
+                size_hint_y: None
+                height: dp(32)
+
+            Spinner:
+                id: weight_unit_spinner
+                text: "kg"
+                font_size: dp(14)
+                values: ["kg", "lbs"]
+                size_hint_y: None
+                height: dp(40)
+
+        DarkCard:
+            Label:
+                text: "Default Rest Time"
+                font_size: dp(14)
+                halign: "left"
+                size_hint_y: None
+                height: dp(32)
+
+            Spinner:
+                id: rest_time_spinner
+                text: "60s"
+                font_size: dp(14)
+                values: ["30s", "45s", "60s", "90s", "120s", "180s"]
+                size_hint_y: None
+                height: dp(40)
+
+        DarkCard:
+            Label:
+                text: "Default Reps"
+                font_size: dp(14)
+                halign: "left"
+                size_hint_y: None
+                height: dp(32)
+
+            Spinner:
+                id: default_reps_spinner
+                text: "10"
+                font_size: dp(14)
+                values: ["5", "6", "8", "10", "12", "15", "20"]
+                size_hint_y: None
+                height: dp(40)
+
+        DarkButton:
+            text: "Backup Database"
+            size_hint_y: None
+            height: dp(44)
+            on_press: root.backup_database()
+
+        RedButton:
+            text: "Reset All Data"
+            size_hint_y: None
+            height: dp(44)
+            on_press: root.reset_data()
+
+        Widget:
+
+        GhostButton:
+            text: "Back"
+            size_hint_y: None
+            height: dp(42)
+            on_press: root.go_back()
+
+# === NUTRITION SCREEN ===
+<NutritionScreen>:
+    name: "nutrition"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(40)
+            spacing: dp(8)
+
+            Button:
+                text: "Home"
+                size_hint_x: 0.2
+                font_size: dp(12)
+                background_color: 0.18, 0.168, 0.15, 1
+                color: 0.658, 0.631, 0.588, 1
+                on_press: app.root.current = "home"
+
+            Button:
+                text: "<"
+                size_hint_x: 0.1
+                font_size: dp(16)
+                background_color: 0.18, 0.168, 0.15, 1
+                color: 0.658, 0.631, 0.588, 1
+                on_press: root.prev_day()
+
+            Label:
+                id: date_label
+                text: "Today"
+                font_size: dp(16)
+                bold: True
+
+            Button:
+                text: ">"
+                size_hint_x: 0.1
+                font_size: dp(16)
+                background_color: 0.18, 0.168, 0.15, 1
+                color: 0.658, 0.631, 0.588, 1
+                on_press: root.next_day()
+
+        DarkCard:
+            size_hint_y: None
+            height: dp(90)
+
+            GridLayout:
+                cols: 4
+                spacing: dp(4)
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        id: total_calories
+                        text: "0"
+                        font_size: dp(20)
+                        bold: True
+                        color: 0.757, 0.267, 0.235, 1
+                    Label:
+                        text: "Calories"
+                        font_size: dp(10)
+                        color: 0.658, 0.631, 0.588, 1
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        id: total_protein
+                        text: "0g"
+                        font_size: dp(16)
+                        bold: True
+                        color: 0.478, 0.62, 0.435, 1
+                    Label:
+                        text: "Protein"
+                        font_size: dp(10)
+                        color: 0.658, 0.631, 0.588, 1
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        id: total_carbs
+                        text: "0g"
+                        font_size: dp(16)
+                        bold: True
+                        color: 0.435, 0.545, 0.639, 1
+                    Label:
+                        text: "Carbs"
+                        font_size: dp(10)
+                        color: 0.658, 0.631, 0.588, 1
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        id: total_fat
+                        text: "0g"
+                        font_size: dp(16)
+                        bold: True
+                        color: 0.788, 0.635, 0.294, 1
+                    Label:
+                        text: "Fat"
+                        font_size: dp(10)
+                        color: 0.658, 0.631, 0.588, 1
+
+        DarkCard:
+            size_hint_y: None
+            height: dp(80)
+
+            BoxLayout:
+                spacing: dp(8)
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_x: 0.5
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(22)
+
+                        Label:
+                            text: "Water Intake"
+                            font_size: dp(13)
+                            bold: True
+                            halign: "left"
+                            size_hint_x: 0.6
+
+                        Button:
+                            text: "Goal"
+                            font_size: dp(10)
+                            size_hint_x: 0.4
+                            background_color: 0.18, 0.168, 0.15, 1
+                            color: 0.658, 0.631, 0.588, 1
+                            on_press: root.set_water_goal()
+
+                    Label:
+                        id: water_total
+                        text: "0ml / 2000ml"
+                        font_size: dp(12)
+                        bold: True
+                        color: 0.435, 0.545, 0.639, 1
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_x: 0.3
+
+                    Label:
+                        id: water_percent
+                        text: "0%"
+                        font_size: dp(28)
+                        bold: True
+                        color: 0.478, 0.62, 0.435, 1
+
+                    Label:
+                        id: water_goal_label
+                        text: "Goal: 2000ml"
+                        font_size: dp(10)
+                        color: 0.658, 0.631, 0.588, 1
+
+                Button:
+                    text: "+"
+                    size_hint_x: 0.15
+                    font_size: dp(18)
+                    background_color: 0.435, 0.545, 0.639, 1
+                    color: 1, 1, 1, 1
+                    on_press: root.add_water()
+
+                Button:
+                    text: "Entries"
+                    size_hint_x: 0.2
+                    font_size: dp(11)
+                    background_color: 0.478, 0.62, 0.435, 1
+                    color: 1, 1, 1, 1
+                    on_press: root.show_water_entries()
+
+        ScrollView:
+            size_hint_y: 6
+            bar_color: 0.48, 0.45, 0.41, 0.5
+            bar_width: dp(4)
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(8)
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(40)
+                    spacing: dp(8)
+                    padding: [0, dp(4), 0, dp(4)]
+
+                    Label:
+                        text: "Breakfast"
+                        font_size: dp(14)
+                        bold: True
+                        halign: "left"
+                        size_hint_x: 0.45
+
+                    Button:
+                        text: "Recipes"
+                        font_size: dp(11)
+                        size_hint_x: 0.25
+                        background_color: 0.435, 0.545, 0.639, 1
+                        color: 1, 1, 1, 1
+                        on_press: root.show_recipes("Breakfast")
+
+                    Button:
+                        text: "+ Add"
+                        font_size: dp(11)
+                        size_hint_x: 0.25
+                        background_color: 0.18, 0.168, 0.15, 1
+                        color: 0.658, 0.631, 0.588, 1
+                        on_press: root.add_food("Breakfast")
+
+                BoxLayout:
+                    id: breakfast_container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(4)
+                    padding: [dp(8), 0]
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(40)
+                    spacing: dp(8)
+                    padding: [0, dp(8), 0, dp(4)]
+
+                    Label:
+                        text: "Lunch"
+                        font_size: dp(14)
+                        bold: True
+                        halign: "left"
+                        size_hint_x: 0.45
+
+                    Button:
+                        text: "Recipes"
+                        font_size: dp(11)
+                        size_hint_x: 0.25
+                        background_color: 0.435, 0.545, 0.639, 1
+                        color: 1, 1, 1, 1
+                        on_press: root.show_recipes("Lunch")
+
+                    Button:
+                        text: "+ Add"
+                        font_size: dp(11)
+                        size_hint_x: 0.25
+                        background_color: 0.18, 0.168, 0.15, 1
+                        color: 0.658, 0.631, 0.588, 1
+                        on_press: root.add_food("Lunch")
+
+                BoxLayout:
+                    id: lunch_container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(4)
+                    padding: [dp(8), 0]
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(40)
+                    spacing: dp(8)
+                    padding: [0, dp(8), 0, dp(4)]
+
+                    Label:
+                        text: "Dinner"
+                        font_size: dp(14)
+                        bold: True
+                        halign: "left"
+                        size_hint_x: 0.45
+
+                    Button:
+                        text: "Recipes"
+                        font_size: dp(11)
+                        size_hint_x: 0.25
+                        background_color: 0.435, 0.545, 0.639, 1
+                        color: 1, 1, 1, 1
+                        on_press: root.show_recipes("Dinner")
+
+                    Button:
+                        text: "+ Add"
+                        font_size: dp(11)
+                        size_hint_x: 0.25
+                        background_color: 0.18, 0.168, 0.15, 1
+                        color: 0.658, 0.631, 0.588, 1
+                        on_press: root.add_food("Dinner")
+
+                BoxLayout:
+                    id: dinner_container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(4)
+                    padding: [dp(8), 0]
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(40)
+                    spacing: dp(8)
+                    padding: [0, dp(8), 0, dp(4)]
+
+                    Label:
+                        text: "Snacks"
+                        font_size: dp(14)
+                        bold: True
+                        halign: "left"
+                        size_hint_x: 0.45
+
+                    Button:
+                        text: "Recipes"
+                        font_size: dp(11)
+                        size_hint_x: 0.25
+                        background_color: 0.435, 0.545, 0.639, 1
+                        color: 1, 1, 1, 1
+                        on_press: root.show_recipes("Snacks")
+
+                    Button:
+                        text: "+ Add"
+                        font_size: dp(11)
+                        size_hint_x: 0.25
+                        background_color: 0.18, 0.168, 0.15, 1
+                        color: 0.658, 0.631, 0.588, 1
+                        on_press: root.add_food("Snacks")
+
+                BoxLayout:
+                    id: snacks_container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(4)
+                    padding: [dp(8), 0]
+
+        DarkCard:
+            size_hint_y: None
+            height: dp(49)
+
+            Button:
+                text: "Create New Recipe"
+                font_size: dp(14)
+                bold: True
+                background_color: 0.478, 0.62, 0.435, 1
+                color: 1, 1, 1, 1
+                on_press: root.create_recipe()
+
+        Widget:
+
+# === CALENDAR SCREEN ===
+<CalendarScreen>:
+    name: "calendar"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(8)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(44)
+            spacing: dp(8)
+
+            Button:
+                text: "< Home"
+                size_hint_x: 0.25
+                font_size: dp(12)
+                background_color: 0.18, 0.168, 0.15, 1
+                color: 0.658, 0.631, 0.588, 1
+                on_press: app.root.current = "home"
+
+            Button:
+                text: "<"
+                size_hint_x: 0.1
+                font_size: dp(16)
+                background_color: 0.18, 0.168, 0.15, 1
+                color: 0.658, 0.631, 0.588, 1
+                on_press: root.prev_month()
+
+            Label:
+                id: month_label
+                text: ""
+                font_size: dp(16)
+                bold: True
+
+            Button:
+                text: ">"
+                size_hint_x: 0.15
+                font_size: dp(16)
+                background_color: 0.18, 0.168, 0.15, 1
+                color: 0.658, 0.631, 0.588, 1
+                on_press: root.next_month()
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(16)
+            spacing: dp(4)
+
+            BoxLayout:
+                spacing: dp(4)
+
+                Widget:
+                    size_hint_x: None
+                    width: dp(12)
+                    canvas.before:
+                        Color:
+                            rgba: 0.435, 0.545, 0.639, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: [dp(10), dp(10)]
+                Label:
+                    text: "Today"
+                    font_size: dp(10)
+                    color: 0.658, 0.631, 0.588, 1
+
+                Widget:
+                    size_hint_x: None
+                    width: dp(12)
+                    canvas.before:
+                        Color:
+                            rgba: 0.478, 0.62, 0.435, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: [dp(10), dp(10)]
+                Label:
+                    text: "Workout"
+                    font_size: dp(10)
+                    color: 0.658, 0.631, 0.588, 1
+
+        GridLayout:
+            id: calendar_grid
+            cols: 7
+            spacing: dp(4)
+
+        DarkCard:
+            size_hint_y: 1.3
+
+            BoxLayout:
+                orientation: "vertical"
+                spacing: dp(4)
+
+                Label:
+                    id: selected_date
+                    text: "Select a day"
+                    font_size: dp(14)
+                    bold: True
+                    size_hint_y: None
+                    height: dp(28)
+
+                ScrollView:
+                    BoxLayout:
+                        id: workout_list_container
+                        orientation: "vertical"
+                        size_hint_y: None
+                        height: self.minimum_height
+                        spacing: dp(4)
+
+#        Widget:
