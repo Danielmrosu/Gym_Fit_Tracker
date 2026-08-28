@@ -111,11 +111,12 @@ class AddFoodPopup(Popup):
 
 
 class AddWaterPopup(Popup):
-    def __init__(self, on_save_callback, **kwargs):
+    def __init__(self, on_save_callback, current_date=None, **kwargs):
         super().__init__(**kwargs)
         self.title = "Add Water Intake"
         self.size_hint = (0.7, 0.4)
         self.on_save_callback = on_save_callback
+        self.current_date = current_date or date.today().isoformat()
         self._build_content()
 
     def _build_content(self):
@@ -161,7 +162,7 @@ class AddWaterPopup(Popup):
 
     def _quick_add(self, amount):
         app = App.get_running_app()
-        app.db.add_water_intake(amount)
+        app.db.add_water_intake(amount, self.current_date)
         self.dismiss()
         if self.on_save_callback:
             Clock.schedule_once(lambda dt: self.on_save_callback(), 0.1)
@@ -174,7 +175,7 @@ class AddWaterPopup(Popup):
             amount = 0
 
         if amount > 0:
-            app.db.add_water_intake(amount)
+            app.db.add_water_intake(amount, self.current_date)
         self.dismiss()
         if self.on_save_callback:
             Clock.schedule_once(lambda dt: self.on_save_callback(), 0.1)
@@ -1259,6 +1260,7 @@ class NutritionScreen(Screen):
         self.current_date = date.today().isoformat()
 
     def on_enter(self):
+        self.current_date = date.today().isoformat()
         self._load_data()
 
     def _load_data(self):
@@ -1340,7 +1342,7 @@ class NutritionScreen(Screen):
         popup.open()
 
     def add_water(self):
-        popup = AddWaterPopup(self._load_data)
+        popup = AddWaterPopup(self._load_data, current_date=self.current_date)
         popup.open()
 
     def show_water_entries(self):

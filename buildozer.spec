@@ -16,7 +16,7 @@ requirements = python3,kivy,sqlite3
 
 orientation = portrait
 
-fullscreen = 0
+fullscreen = 1
 
 android.permissions = INTERNET
 
@@ -28,9 +28,7 @@ android.ndk = 25b
 
 android.accept_sdk_license = True
 
-android.arch = arm64-v8a
-
-android.arch_targets = arm64-v8a
+android.archs = arm64-v8a
 
 android.logcat_filters = *:S python:I
 
