@@ -19,7 +19,11 @@
 ---
 
 <p align="center">
-  <img src="screenshots/screenshot_home.png" width="280" alt="Home Screen">
+  <img src="screenshots/home.jpeg" width="250" alt="Home Screen">
+  &nbsp;&nbsp;
+  <img src="screenshots/nutrition.jpeg" width="250" alt="Nutrition Screen">
+  &nbsp;&nbsp;
+  <img src="screenshots/progress.jpeg" width="250" alt="Progress Screen">
 </p>
 
 ---
